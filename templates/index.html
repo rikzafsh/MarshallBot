@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}MarshallBot, kalender Jawa Mataraman{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <h1>Hari, pasaran, dan bulan Jawa dalam satu percakapan</h1>
+    <p class="lead">
+      MarshallBot menjawab pertanyaan tentang kalender Jawa Mataraman
+      (Sultanagungan): konversi tanggal Masehi dan Jawa, weton, wuku, bulan,
+      windu, serta sejarahnya.
+    </p>
+    {% for t in themes %}
+    <a class="btn btn-primary" href="{{ url_for('chat_page', theme_id=t.id) }}">Mulai bertanya ke {{ t.bot_name }}</a>
+    {% endfor %}
+    {% if contoh %}
+    <p class="hint">Atau coba salah satu pertanyaan ini:</p>
+    <ul class="chips">
+      {% for c in contoh %}
+      <li><a class="chip" href="{{ url_for('chat_page', theme_id=themes[0].id, q=c) }}">{{ c }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  <figure class="dial" aria-label="Mancapat-kalima pancer: lima pasaran Jawa beserta neptu dan arah mata angin">
+    <svg viewBox="0 0 360 360" role="img" aria-labelledby="dial-judul">
+      <title id="dial-judul">Lima pasaran: Wage di utara, Legi di timur, Pahing di selatan, Pon di barat, Kliwon di tengah</title>
+      <g class="dial-ring-outer">
+        <circle cx="180" cy="180" r="160" class="ring ring-dash"/>
+        <circle cx="180" cy="26" r="3" class="star"/>
+        <circle cx="334" cy="180" r="3" class="star"/>
+        <circle cx="180" cy="334" r="3" class="star"/>
+        <circle cx="26" cy="180" r="3" class="star"/>
+      </g>
+      <circle cx="180" cy="180" r="112" class="ring"/>
+      <path d="M180 68 L292 180 L180 292 L68 180 Z" class="ring ring-thin"/>
+      <path d="M180 68 V292 M68 180 H292" class="ring ring-thin"/>
+
+      <g class="node"><circle cx="180" cy="68" r="34"/><text x="180" y="66" class="n-name">Wage</text><text x="180" y="84" class="n-val">neptu 4</text></g>
+      <g class="node"><circle cx="292" cy="180" r="34"/><text x="292" y="178" class="n-name">Legi</text><text x="292" y="196" class="n-val">neptu 5</text></g>
+      <g class="node"><circle cx="180" cy="292" r="34"/><text x="180" y="290" class="n-name">Pahing</text><text x="180" y="308" class="n-val">neptu 9</text></g>
+      <g class="node"><circle cx="68" cy="180" r="34"/><text x="68" y="178" class="n-name">Pon</text><text x="68" y="196" class="n-val">neptu 7</text></g>
+      <g class="node node-center"><circle cx="180" cy="180" r="42"/><text x="180" y="178" class="n-name">Kliwon</text><text x="180" y="198" class="n-val">neptu 8</text></g>
+    </svg>
+    <figcaption>Mancapat-kalima pancer: Wage utara, Legi timur, Pahing selatan, Pon barat, Kliwon di pusat.</figcaption>
+  </figure>
+</section>
+
+{% if themes|length > 1 %}
+<section class="cards">
+  {% for t in themes %}
+  <a class="card" href="{{ url_for('chat_page', theme_id=t.id) }}" style="--accent: {{ t.color }}">
+    <span class="card-avatar">{{ t.avatar }}</span>
+    <strong>{{ t.title }}</strong>
+    <span>{{ t.description }}</span>
+  </a>
+  {% endfor %}
+</section>
+{% endif %}
+{% endblock %}

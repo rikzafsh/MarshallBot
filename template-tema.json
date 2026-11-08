@@ -1,0 +1,22 @@
+{
+  "id": "contoh",
+  "bot_name": "NamaBot",
+  "title": "Judul Tema",
+  "subtitle": "Keterangan singkat",
+  "description": "Satu kalimat tentang apa yang dijawab bot ini.",
+  "avatar": "★",
+  "color": "#2F6FD2",
+  "greeting": "{salam_jawa}! Saya {nama_bot}. Tanyakan tentang ...",
+  "suggestions": ["Pertanyaan saran 1", "Pertanyaan saran 2", "Pertanyaan saran 3", "Pertanyaan saran 4"],
+  "fallback": [
+    "Maaf, saya belum memahami pertanyaan itu. Coba tanyakan tentang ...",
+    "Pertanyaan itu di luar bahan saya. Saya bisa menjawab tentang ..."
+  ],
+  "intents": [
+    {
+      "tag": "salam",
+      "patterns": ["halo", "selamat pagi", "hai", "permisi"],
+      "responses": ["Halo! Ada yang bisa {nama_bot} bantu?", "Hai! Silakan bertanya."]
+    }
+  ]
+}

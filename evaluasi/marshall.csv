@@ -1,0 +1,59 @@
+kalimat,intent
+tanggal 5 Mei 2001 dalam kalender jawa itu tanggal berapa,gregorian_to_javanese
+tolong konversikan 25/12/2025 ke penanggalan jawa,gregorian_to_javanese
+1 Mulud 1960 kalau dimasehikan tanggal berapa,javanese_to_gregorian
+konversi tanggal jawa 10 Besar 1958 ke masehi,javanese_to_gregorian
+weton lahir saya 3 Mei 2001 apa,gregorian_to_weton
+cek weton 12-03-1999,gregorian_to_weton
+wetonnya tanggal 1 Sapar 1959 apa,javanese_to_weton
+tanggal 21 Januari 2026 wukunya apa,gregorian_to_wuku
+masuk wuku apa tanggal 1/1/2026,gregorian_to_wuku
+sekarang tanggal jawa berapa,date_comparison
+weton hari ini apa,date_comparison
+konversi tanggal 3 sampai 9 Maret 2026 ke kalender jawa,date_range_conversion
+berapa selisih hari 1 Sura 1959 dan 1 Rejeb 1959,date_difference
+weton itu maksudnya apa,weton_definition
+sebutkan pasaran jawa,pasaran_info
+neptu hari jumat berapa,neptu_info
+neptu kamis legi berapa,neptu_info
+ada berapa jumlah wuku,wuku_info
+jelaskan wuku Gumbreg,wuku_details
+satu siklus pawukon itu berapa hari,pawukon_cycle
+selapan itu berapa hari,selapanan
+gmn cara hitung neptu weton,neptu_calculation
+nama nama bulan jawa apa aja,month_list
+sura itu hijriahnya bulan apa,month_translation
+bulan jawa umurnya berapa hari,month_duration
+bulan jawa sekarang apa,current_javanese_month
+bulan sebelum Rejeb apa,month_sequence
+kapan 1 Sawal 1959,month_conversion
+kenapa bulan jawa namanya mirip bulan hijriah,month_origin
+tahun jawa sekarang apa namanya,year_name
+windu itu apa,year_cycle
+urutan nama tahun dalam windu,windu_sequence
+bedanya wastu sama wuntu apa,wastu_wuntu
+kurup itu apa,kurup_info
+tahun jawa awalnya mulai kapan,year_origin
+setahun jawa ada berapa hari,year_duration
+sekarang windu apa,current_windu
+siapa yang bikin kalender sultanagungan,sultan_agung
+sejarah kalender jawa gimana,calendar_history
+beda kalender jawa dan masehi apa,gregorian_difference
+beda kalender jawa dengan hijriah,hijri_difference
+apakah kalender jawa itu lunar,lunar_system
+anno javanico artinya apa,calendar_terminology
+kenapa sultan agung mengubah kalender jawa,calendar_reform_reason
+apa ciri khas kalender jawa,calendar_characteristics
+halo kak,greeting
+sugeng enjing,greeting
+marshallbot itu apa,about_bot
+kamu bisa bantu apa aja,help
+matur nuwun,thanks
+dadah,goodbye
+tolong ulangi jawabannya,repeat_response
+maksud saya tanggal lain,clarification
+harga bensin hari ini berapa,fallback
+siapa presiden indonesia,fallback
+resep nasi goreng,fallback
+cara bayar ukt,fallback
+siapa pemenang piala dunia,fallback

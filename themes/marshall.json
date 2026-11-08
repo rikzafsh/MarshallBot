@@ -1,0 +1,831 @@
+{
+  "id": "marshall",
+  "bot_name": "MarshallBot",
+  "title": "Konversi Kalender Jawa Mataraman",
+  "subtitle": "Kalender Jawa Sultanagungan",
+  "description": "Konversi tanggal Masehi dan Jawa, weton, wuku, bulan, windu, serta sejarah kalender Jawa Mataraman. Dijalankan dengan aturan dan pola, tanpa model bahasa besar.",
+  "avatar": "♂",
+  "color": "#D2562D",
+  "greeting": "{salam_jawa}! Saya {nama_bot}. Tanyakan konversi tanggal, weton, wuku, bulan Jawa, atau sejarah kalender Sultanagungan.",
+  "suggestions": [
+    "Tanggal Jawa hari ini",
+    "Weton 17 Agustus 1945",
+    "Apa itu windu?",
+    "Nama bulan Jawa"
+  ],
+  "pesan_tidak_aktif": "Perhitungan kalender untuk permintaan ini belum diaktifkan. Sementara ini saya masih bisa menjawab soal neptu, wuku, bulan, windu, dan sejarah kalender Jawa.",
+  "fallback": [
+    "Maaf, saya belum memahami pertanyaan tersebut. Silakan gunakan pertanyaan yang berkaitan dengan kalender Jawa atau konversi tanggal.",
+    "Pertanyaan itu di luar bahan saya. Coba tanyakan weton, wuku, bulan Jawa, windu, atau konversi tanggal, misalnya \"Weton 17 Agustus 1945\".",
+    "Saya hanya mengenal kalender Jawa Mataraman. Coba ketik \"bantuan\" untuk melihat apa yang bisa saya jawab."
+  ],
+  "intents": [
+    {
+      "id": "CONV001",
+      "tag": "gregorian_to_javanese",
+      "name": "Gregorian_To_Javanese",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Tanggal 17 Agustus 1945 dalam kalender Jawa tanggal berapa?",
+        "17 Agustus 1945 itu tanggal Jawa berapa",
+        "Konversi 17 Agustus 1945 ke kalender Jawa",
+        "Ubah tanggal 17/08/1945 ke penanggalan Jawa",
+        "Tanggal Masehi 17 Agustus 1945 sama dengan tanggal Jawa berapa",
+        "Konversi tanggal Masehi ke kalender Jawa",
+        "Tanggal Jawa untuk 17-08-1945"
+      ],
+      "responses": [
+        "Tanggal {input} bertepatan dengan tanggal Jawa {hasil}.",
+        "{input} dalam kalender Jawa adalah {hasil}."
+      ],
+      "handler": "gregorian_to_javanese"
+    },
+    {
+      "id": "CONV002",
+      "tag": "javanese_to_gregorian",
+      "name": "Javanese_To_Gregorian",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Tanggal 1 Sura tahun 1959 jatuh pada tanggal berapa?",
+        "1 Sura 1959 itu tanggal Masehi berapa",
+        "Konversi 1 Sura 1959 ke kalender Masehi",
+        "Ubah tanggal Jawa 1 Sura 1959 ke Masehi",
+        "1 Sura 1959 bertepatan dengan tanggal berapa",
+        "Konversi tanggal Jawa ke kalender Masehi"
+      ],
+      "responses": [
+        "Tanggal Jawa {input} bertepatan dengan {hasil} dalam kalender Masehi.",
+        "{input} Jawa jatuh pada {hasil} Masehi."
+      ],
+      "handler": "javanese_to_gregorian"
+    },
+    {
+      "id": "CONV003",
+      "tag": "gregorian_to_weton",
+      "name": "Gregorian_To_Weton",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Weton tanggal 17 Agustus 1945 apa?",
+        "Tanggal 17 Agustus 1945 wetonnya apa?",
+        "Weton untuk 17 Agustus 1945 apa?",
+        "Kalau tanggal 17 Agustus 1945, hari dan pasarannya apa?",
+        "Tanggal 17/08/1945 itu jatuh pada weton apa?",
+        "Coba cari weton tanggal 17 Agustus 1945.",
+        "Cek weton lahir 17 Agustus 1945"
+      ],
+      "responses": [
+        "Tanggal {input} memiliki weton {hasil} (neptu {neptu}).",
+        "Weton {input} adalah {hasil}, dengan neptu {neptu}."
+      ],
+      "handler": "gregorian_to_weton"
+    },
+    {
+      "id": "CONV004",
+      "tag": "javanese_to_weton",
+      "name": "Javanese_To_Weton",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Apa weton tanggal 1 Sura?",
+        "Weton 1 Sura 1959 apa",
+        "1 Sura 1959 wetonnya apa",
+        "Hari dan pasaran tanggal Jawa 1 Sura 1959",
+        "Cek weton tanggal Jawa 1 Sura"
+      ],
+      "responses": [
+        "Weton tanggal Jawa {input} adalah {hasil} (neptu {neptu}).",
+        "Tanggal Jawa {input} jatuh pada {hasil}, neptu {neptu}."
+      ],
+      "handler": "javanese_to_weton"
+    },
+    {
+      "id": "CONV005",
+      "tag": "gregorian_to_wuku",
+      "name": "Gregorian_To_Wuku",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Tanggal 17 Agustus 1945 masuk wuku apa?",
+        "Wuku tanggal 17 Agustus 1945",
+        "17 Agustus 1945 wukunya apa",
+        "Cari wuku untuk 17 Agustus 1945",
+        "Tanggal 17/08/1945 jatuh di wuku apa"
+      ],
+      "responses": [
+        "Tanggal {input} berada dalam Wuku {hasil}.",
+        "{input} masuk Wuku {hasil}."
+      ],
+      "handler": "gregorian_to_wuku"
+    },
+    {
+      "id": "CONV006",
+      "tag": "date_comparison",
+      "name": "Date_Comparison",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Apa tanggal Jawa hari ini?",
+        "Hari ini tanggal Jawa berapa",
+        "Sekarang tanggal Jawa berapa",
+        "Tanggal Jawa sekarang",
+        "Hari ini dalam kalender Jawa tanggal berapa",
+        "Weton hari ini apa",
+        "Tanggal Jawa besok berapa",
+        "Tanggal Jawa kemarin",
+        "Hari ini hari apa dan pasaran apa",
+        "Sekarang hari apa"
+      ],
+      "responses": [
+        "{label} ({input}) dalam kalender Jawa adalah {hasil}.",
+        "{label} bertepatan dengan {hasil} dalam kalender Jawa ({input})."
+      ],
+      "handler": "tanggal_jawa_hari_ini"
+    },
+    {
+      "id": "CONV007",
+      "tag": "date_range_conversion",
+      "name": "Date_Range_Conversion",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Konversikan tanggal 1 sampai 10 Januari 2026 ke kalender Jawa.",
+        "Daftar tanggal Jawa untuk 1 sampai 10 Januari 2026",
+        "Konversi rentang 1 hingga 10 Januari 2026",
+        "Kalender Jawa 1 - 10 Januari 2026",
+        "Konversi rentang tanggal ke kalender Jawa"
+      ],
+      "responses": [
+        "Berikut hasil konversi rentang tanggal tersebut:{hasil}"
+      ],
+      "handler": "konversi_rentang"
+    },
+    {
+      "id": "CONV008",
+      "tag": "date_difference",
+      "name": "Date_Difference",
+      "group": "Calendar Conversion",
+      "patterns": [
+        "Berapa selisih hari antara dua tanggal Jawa?",
+        "Hitung selisih hari 1 Sura 1959 dan 1 Sapar 1959",
+        "Berapa hari dari 1 Sura 1959 sampai 1 Sapar 1959",
+        "Selisih tanggal 17 Agustus 1945 dan 17 Agustus 1946",
+        "Berapa hari jarak antara dua tanggal",
+        "Selisih hari antara dua tanggal"
+      ],
+      "responses": [
+        "Selisih kedua tanggal tersebut adalah {hasil} hari."
+      ],
+      "handler": "selisih_tanggal"
+    },
+    {
+      "id": "WET001",
+      "tag": "weton_definition",
+      "name": "Weton_Definition",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Apa yang dimaksud dengan weton?",
+        "Weton itu apa",
+        "Pengertian weton",
+        "Arti weton dalam kalender Jawa",
+        "Jelaskan tentang weton",
+        "Definisi weton"
+      ],
+      "responses": [
+        "Weton merupakan kombinasi antara dina pitu (tujuh hari) dan pancawara atau pasaran (lima hari) dalam sistem penanggalan Jawa, misalnya Jumat Legi.",
+        "Weton adalah pertemuan hari dan pasaran, misalnya Selasa Pon. Pertemuan yang sama berulang setiap 35 hari."
+      ]
+    },
+    {
+      "id": "WET002",
+      "tag": "pasaran_info",
+      "name": "Pasaran_Info",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Apa saja nama pasaran Jawa?",
+        "Sebutkan lima pasaran",
+        "Pasaran Jawa ada apa saja",
+        "Nama nama pasaran",
+        "Apa itu pasaran",
+        "Apa itu pancawara",
+        "Sebutkan pasaran Jawa"
+      ],
+      "responses": [
+        "Lima pasaran Jawa adalah Legi, Pahing, Pon, Wage, dan Kliwon.",
+        "Pancawara atau pasaran terdiri atas Legi, Pahing, Pon, Wage, dan Kliwon. Dalam konsep mancapat-kalima pancer, Legi berada di timur, Pahing di selatan, Pon di barat, Wage di utara, dan Kliwon di tengah."
+      ]
+    },
+    {
+      "id": "WET003",
+      "tag": "neptu_info",
+      "name": "Neptu_Info",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Berapa nilai neptu hari Selasa?",
+        "Neptu hari Kamis berapa",
+        "Neptu pasaran Legi",
+        "Nilai neptu Pon",
+        "Neptu Rabu Pahing",
+        "Neptu weton Selasa Pon berapa"
+      ],
+      "responses": [
+        "{hasil}"
+      ],
+      "handler": "neptu"
+    },
+    {
+      "id": "WET004",
+      "tag": "wuku_info",
+      "name": "Wuku_Info",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Ada berapa macam wuku dalam kalender Jawa?",
+        "Berapa jumlah wuku",
+        "Wuku itu ada berapa",
+        "Sebutkan nama nama wuku",
+        "Apa saja nama wuku",
+        "Apa itu wuku"
+      ],
+      "responses": [
+        "Kalender Pawukon memiliki 30 wuku, dari Sinta sampai Watugunung: Sinta, Landep, Wukir, Kurantil, Tolu, Gumbreg, Warigalit, Warigagung, Julungwangi, Sungsang, Galungan, Kuningan, Langkir, Mandasiya, Julungpujud, Pahang, Kuruwelut, Marakeh, Tambir, Medangkungan, Maktal, Wuye, Manahil, Prangbakat, Bala, Wugu, Wayang, Kulawu, Dukut, Watugunung.",
+        "Ada 30 wuku dalam Pawukon. Urutannya dimulai dari Sinta dan berakhir di Watugunung: Sinta, Landep, Wukir, Kurantil, Tolu, Gumbreg, Warigalit, Warigagung, Julungwangi, Sungsang, Galungan, Kuningan, Langkir, Mandasiya, Julungpujud, Pahang, Kuruwelut, Marakeh, Tambir, Medangkungan, Maktal, Wuye, Manahil, Prangbakat, Bala, Wugu, Wayang, Kulawu, Dukut, Watugunung."
+      ]
+    },
+    {
+      "id": "WET005",
+      "tag": "wuku_details",
+      "name": "Wuku_Details",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Apa itu Wuku Sinta?",
+        "Jelaskan wuku Landep",
+        "Wuku Watugunung itu apa",
+        "Tentang wuku Sinta",
+        "Wuku Sinta urutan keberapa",
+        "Wuku apa sebelum wuku Landep"
+      ],
+      "responses": [
+        "{hasil}"
+      ],
+      "handler": "wuku_detail"
+    },
+    {
+      "id": "WET006",
+      "tag": "pawukon_cycle",
+      "name": "Pawukon_Cycle",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Berapa lama satu siklus Pawukon?",
+        "Siklus pawukon berapa hari",
+        "Pawukon berapa hari",
+        "Lama satu putaran pawukon",
+        "Berapa hari satu siklus wuku"
+      ],
+      "responses": [
+        "Satu siklus Pawukon berlangsung selama 210 hari, yaitu 30 wuku dikalikan 7 hari.",
+        "Pawukon berulang setiap 210 hari: 30 wuku, masing-masing berlangsung 7 hari."
+      ]
+    },
+    {
+      "id": "WET007",
+      "tag": "selapanan",
+      "name": "Selapanan",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Apa yang dimaksud dengan selapanan?",
+        "Selapan itu apa",
+        "Selapanan berapa hari",
+        "Arti selapan dalam kalender Jawa",
+        "Berapa hari satu selapan"
+      ],
+      "responses": [
+        "Selapanan merupakan siklus 35 hari yang berasal dari pertemuan siklus tujuh hari dan lima pasaran (7 x 5 = 35).",
+        "Selapan adalah 35 hari, yaitu jarak antara dua weton yang sama, misalnya dari Jumat Legi ke Jumat Legi berikutnya."
+      ]
+    },
+    {
+      "id": "WET008",
+      "tag": "neptu_calculation",
+      "name": "Neptu_Calculation",
+      "group": "Weton and Pawukon",
+      "patterns": [
+        "Bagaimana cara menghitung neptu weton?",
+        "Cara hitung neptu",
+        "Rumus neptu weton",
+        "Neptu weton dihitung bagaimana",
+        "Cara mencari neptu"
+      ],
+      "responses": [
+        "Neptu weton dihitung dengan menjumlahkan nilai neptu dina pitu dan pasaran. Hari: Minggu 5, Senin 4, Selasa 3, Rabu 7, Kamis 8, Jumat 6, Sabtu 9. Pasaran: Legi 5, Pahing 9, Pon 7, Wage 4, Kliwon 8. Contoh: Selasa Pon = 3 + 7 = 10."
+      ]
+    },
+    {
+      "id": "MON001",
+      "tag": "month_list",
+      "name": "Month_List",
+      "group": "Javanese Months",
+      "patterns": [
+        "Apa saja nama bulan Jawa?",
+        "Sebutkan nama bulan Jawa",
+        "Bulan Jawa ada apa saja",
+        "Daftar wulan Jawa",
+        "Urutan bulan dalam kalender Jawa",
+        "Ada berapa bulan dalam kalender Jawa"
+      ],
+      "responses": [
+        "Bulan Jawa terdiri atas 12 bulan: Sura, Sapar, Mulud, Bakdamulud, Jumadilawal, Jumadilakhir, Rejeb, Ruwah, Pasa, Sawal, Dulkangidah, dan Besar."
+      ]
+    },
+    {
+      "id": "MON002",
+      "tag": "month_translation",
+      "name": "Month_Translation",
+      "group": "Javanese Months",
+      "patterns": [
+        "Bulan Sura bertepatan dengan bulan apa dalam kalender Hijriah?",
+        "Sura itu bulan Hijriah apa",
+        "Padanan bulan Jawa dengan Hijriah",
+        "Nama bulan Hijriah untuk bulan Jawa",
+        "Pasa sama dengan bulan apa di Hijriah"
+      ],
+      "responses": [
+        "Padanan bulan Jawa dengan Hijriah: Sura (Muharam), Sapar (Safar), Mulud (Rabiulawal), Bakdamulud (Rabiulakhir), Jumadilawal (Jumadilawal), Jumadilakhir (Jumadilakhir), Rejeb (Rajab), Ruwah (Syakban), Pasa (Ramadan), Sawal (Syawal), Dulkangidah (Zulkaidah), Besar (Zulhijah). Tanggalnya bisa berbeda satu hari atau lebih."
+      ]
+    },
+    {
+      "id": "MON003",
+      "tag": "month_duration",
+      "name": "Month_Duration",
+      "group": "Javanese Months",
+      "patterns": [
+        "Berapa hari dalam bulan Sura?",
+        "Bulan Jawa berapa hari",
+        "Jumlah hari tiap bulan Jawa",
+        "Sura berapa hari",
+        "Lama satu bulan dalam kalender Jawa",
+        "Bulan Besar berapa hari"
+      ],
+      "responses": [
+        "Bulan Jawa berumur 29 atau 30 hari bergantian: bulan ganjil (Sura, Mulud, Jumadilawal, Rejeb, Pasa, Dulkangidah) 30 hari, bulan genap (Sapar, Bakdamulud, Jumadilakhir, Ruwah, Sawal) 29 hari. Bulan Besar berumur 29 hari pada tahun wastu dan 30 hari pada tahun wuntu."
+      ]
+    },
+    {
+      "id": "MON004",
+      "tag": "current_javanese_month",
+      "name": "Current_Javanese_Month",
+      "group": "Javanese Months",
+      "patterns": [
+        "Sekarang bulan Jawa apa?",
+        "Bulan Jawa sekarang",
+        "Saat ini bulan apa dalam kalender Jawa",
+        "Bulan Jawa hari ini apa",
+        "Sekarang wulan apa"
+      ],
+      "responses": [
+        "Saat ini berada dalam bulan {hasil}.",
+        "Bulan Jawa saat ini adalah {hasil}."
+      ],
+      "handler": "bulan_jawa_sekarang"
+    },
+    {
+      "id": "MON005",
+      "tag": "month_sequence",
+      "name": "Month_Sequence",
+      "group": "Javanese Months",
+      "patterns": [
+        "Bulan apa setelah Mulud?",
+        "Bulan setelah Ruwah apa",
+        "Bulan sebelum Pasa apa",
+        "Setelah Besar bulan apa",
+        "Bulan apa sesudah Sura",
+        "Bulan sebelum Sura"
+      ],
+      "responses": [
+        "{hasil}"
+      ],
+      "handler": "urutan_bulan"
+    },
+    {
+      "id": "MON006",
+      "tag": "month_conversion",
+      "name": "Month_Conversion",
+      "group": "Javanese Months",
+      "patterns": [
+        "Kapan tanggal 1 Pasa tahun 1959?",
+        "1 Pasa 1959 jatuh kapan",
+        "Tanggal 1 Sawal 1959 kapan",
+        "Kapan 1 Ruwah 1959",
+        "Kapan awal bulan Pasa 1 Pasa 1959"
+      ],
+      "responses": [
+        "Tanggal {input} bertepatan dengan {hasil} dalam kalender Masehi.",
+        "{input} jatuh pada {hasil} Masehi."
+      ],
+      "handler": "konversi_bulan"
+    },
+    {
+      "id": "MON007",
+      "tag": "month_origin",
+      "name": "Month_Origin",
+      "group": "Javanese Months",
+      "patterns": [
+        "Mengapa nama bulan Jawa mirip dengan nama bulan Hijriah?",
+        "Kenapa nama bulan Jawa mirip Hijriah",
+        "Asal usul nama bulan Jawa",
+        "Dari mana nama bulan Jawa berasal",
+        "Kenapa ada bulan Mulud dan Rejeb di Jawa"
+      ],
+      "responses": [
+        "Penamaan bulan Jawa Sultanagungan mengadaptasi unsur penanggalan Islam ke dalam tradisi penanggalan Jawa, sehingga namanya mirip nama bulan Hijriah dengan lafal Jawa.",
+        "Sejak pembaruan oleh Sultan Agung, bulan Jawa mengikuti bulan Hijriah: Rejeb dari Rajab, Ruwah dari Syakban, Pasa dari puasa Ramadan."
+      ]
+    },
+    {
+      "id": "YEAR001",
+      "tag": "year_name",
+      "name": "Year_Name",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Apa nama tahun Jawa sekarang?",
+        "Sekarang tahun Jawa berapa",
+        "Tahun Jawa saat ini",
+        "Tahun Jawa sekarang namanya apa",
+        "Sekarang tahun apa dalam kalender Jawa"
+      ],
+      "responses": [
+        "Tahun Jawa saat ini adalah tahun {tahun} ({nama_tahun}).",
+        "Sekarang tahun Jawa {tahun}, bernama tahun {nama_tahun}."
+      ],
+      "handler": "tahun_jawa_sekarang"
+    },
+    {
+      "id": "YEAR002",
+      "tag": "year_cycle",
+      "name": "Year_Cycle",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Apa yang dimaksud dengan windu?",
+        "Windu itu apa",
+        "Pengertian windu",
+        "Windu berapa tahun",
+        "Arti windu dalam kalender Jawa"
+      ],
+      "responses": [
+        "Windu merupakan siklus delapan tahun dalam sistem kalender Jawa. Empat windu (Adi, Kuntara, Sengara, Sancaya) membentuk siklus 32 tahun.",
+        "Satu windu terdiri atas delapan tahun, yaitu Alip, Ehe, Jimawal, Je, Dal, Be, Wawu, dan Jimakir."
+      ]
+    },
+    {
+      "id": "YEAR003",
+      "tag": "windu_sequence",
+      "name": "Windu_Sequence",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Apa saja nama tahun dalam satu windu?",
+        "Urutan tahun dalam windu",
+        "Sebutkan nama tahun Jawa",
+        "Nama delapan tahun Jawa",
+        "Tahun Alip Ehe urutannya bagaimana"
+      ],
+      "responses": [
+        "Urutan tahun dalam satu windu adalah Alip, Ehe, Jimawal, Je, Dal, Be, Wawu, dan Jimakir."
+      ]
+    },
+    {
+      "id": "YEAR004",
+      "tag": "wastu_wuntu",
+      "name": "Wastu_Wuntu",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Apa perbedaan Wastu dan Wuntu?",
+        "Wastu dan wuntu itu apa",
+        "Tahun wuntu berapa hari",
+        "Beda tahun pendek dan tahun panjang Jawa",
+        "Apa itu tahun wastu"
+      ],
+      "responses": [
+        "Wastu merupakan tahun pendek (354 hari), sedangkan Wuntu merupakan tahun panjang (355 hari, bulan Besar berumur 30 hari) dalam sistem penanggalan Jawa. Dalam satu windu ada tiga tahun wuntu dan lima tahun wastu."
+      ]
+    },
+    {
+      "id": "YEAR005",
+      "tag": "kurup_info",
+      "name": "Kurup_Info",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Apa yang dimaksud dengan kurup?",
+        "Kurup itu apa",
+        "Pengertian kurup dalam kalender Jawa",
+        "Kurup berapa tahun",
+        "Jelaskan tentang kurup"
+      ],
+      "responses": [
+        "Kurup merupakan siklus panjang dalam kalender Jawa, terdiri atas 15 windu (120 tahun), yang dipakai untuk menyesuaikan hitungan kalender Jawa dengan peredaran Bulan.",
+        "Kurup adalah sistem penyesuaian perhitungan kalender Jawa terhadap sistem lunar. Satu kurup mencakup 120 tahun."
+      ]
+    },
+    {
+      "id": "YEAR006",
+      "tag": "year_origin",
+      "name": "Calendar_Origin (YEAR006)",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Bagaimana awal perhitungan tahun Jawa?",
+        "Tahun Jawa mulai dari kapan",
+        "Awal mula hitungan tahun Jawa",
+        "Asal usul tahun Jawa",
+        "Tahun Jawa dimulai tahun berapa"
+      ],
+      "responses": [
+        "Sistem penanggalan Jawa berkaitan dengan tahun Saka dan pembaruan kalender pada masa Sultan Agung. Hitungan tahun Saka diteruskan, sehingga 1 Sura 1555 Jawa bertepatan dengan 1 Muharam 1043 H (tahun 1633 M)."
+      ]
+    },
+    {
+      "id": "YEAR007",
+      "tag": "year_duration",
+      "name": "Year_Duration",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Berapa jumlah hari dalam satu tahun Jawa?",
+        "Satu tahun Jawa berapa hari",
+        "Tahun Jawa berapa hari",
+        "Berapa hari setahun dalam kalender Jawa",
+        "Lama satu tahun Jawa"
+      ],
+      "responses": [
+        "Tahun Jawa memiliki 354 atau 355 hari, bergantung pada jenis tahunnya: wastu (354 hari) atau wuntu (355 hari)."
+      ]
+    },
+    {
+      "id": "YEAR008",
+      "tag": "current_windu",
+      "name": "Current_Windu",
+      "group": "Javanese Year System",
+      "patterns": [
+        "Sekarang berada dalam windu apa?",
+        "Windu sekarang apa",
+        "Saat ini windu apa",
+        "Sekarang windu keberapa",
+        "Windu tahun ini"
+      ],
+      "responses": [
+        "Tahun Jawa {tahun} ({nama_tahun}) berada pada windu {windu}."
+      ],
+      "handler": "windu_sekarang"
+    },
+    {
+      "id": "KNOW001",
+      "tag": "sultan_agung",
+      "name": "Sultan_Agung",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Siapa yang memperkenalkan kalender Jawa Sultanagungan?",
+        "Siapa pencipta kalender Jawa",
+        "Siapa Sultan Agung",
+        "Kalender Sultanagungan dibuat oleh siapa",
+        "Siapa pembuat kalender Jawa Mataram"
+      ],
+      "responses": [
+        "Kalender Jawa Sultanagungan diperkenalkan pada masa pemerintahan Sultan Agung dari Kesultanan Mataram.",
+        "Sultan Agung, raja Mataram, memperkenalkan kalender Jawa Islam yang kini dikenal sebagai kalender Sultanagungan."
+      ]
+    },
+    {
+      "id": "KNOW002",
+      "tag": "calendar_history",
+      "name": "Calendar_History",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Bagaimana sejarah kalender Sultanagungan?",
+        "Sejarah kalender Jawa",
+        "Cerita awal kalender Jawa",
+        "Kapan kalender Jawa dibuat",
+        "Riwayat penanggalan Jawa Mataram"
+      ],
+      "responses": [
+        "Kalender Sultanagungan merupakan hasil pembaruan sistem penanggalan Jawa pada abad ke-17 (1633 M) dengan mengadaptasi sistem lunar Islam."
+      ]
+    },
+    {
+      "id": "KNOW003",
+      "tag": "gregorian_difference",
+      "name": "Gregorian_Difference",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Apa perbedaan kalender Jawa dan Masehi?",
+        "Beda kalender Jawa dengan Masehi",
+        "Kalender Jawa vs Masehi",
+        "Bedanya penanggalan Jawa dan Gregorian",
+        "Perbandingan kalender Jawa dan Masehi"
+      ],
+      "responses": [
+        "Kalender Masehi menggunakan sistem solar (365 atau 366 hari), sedangkan kalender Jawa Sultanagungan menggunakan sistem lunar (354 atau 355 hari) dengan penyesuaian siklus tahunan, sehingga tahun Jawa sekitar 11 hari lebih pendek."
+      ]
+    },
+    {
+      "id": "KNOW004",
+      "tag": "hijri_difference",
+      "name": "Hijri_Difference",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Apa perbedaan kalender Jawa dan Hijriah?",
+        "Beda kalender Jawa dengan Hijriah",
+        "Kalender Jawa vs Hijriah",
+        "Bedanya penanggalan Jawa dan Islam",
+        "Perbandingan kalender Jawa dan Hijriah"
+      ],
+      "responses": [
+        "Keduanya menggunakan dasar perhitungan lunar, tetapi kalender Jawa memiliki sistem tahun, nama bulan, serta unsur budaya dan siklus tradisional (pasaran, windu, pawukon) tersendiri."
+      ]
+    },
+    {
+      "id": "KNOW005",
+      "tag": "lunar_system",
+      "name": "Lunar_System",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Apakah kalender Jawa menggunakan sistem lunar?",
+        "Kalender Jawa lunar atau solar",
+        "Kalender Jawa berdasarkan bulan atau matahari",
+        "Dasar perhitungan kalender Jawa",
+        "Apakah penanggalan Jawa pakai peredaran bulan"
+      ],
+      "responses": [
+        "Ya. Kalender Jawa Sultanagungan menggunakan dasar peredaran Bulan (lunar).",
+        "Betul, kalender Jawa Sultanagungan berbasis lunar, dengan satu bulan 29 atau 30 hari."
+      ]
+    },
+    {
+      "id": "KNOW006",
+      "tag": "calendar_terminology",
+      "name": "Calendar_Terminology",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Apa arti Anno Javanico?",
+        "Anno Javanico itu apa",
+        "Arti singkatan AJ pada tahun Jawa",
+        "Apa itu Anno Javanico",
+        "Anno Javanico singkatan"
+      ],
+      "responses": [
+        "Anno Javanico (AJ) merupakan istilah yang digunakan untuk menyebut sistem penanggalan atau tahun Jawa, seperti Anno Domini (AD) untuk tahun Masehi."
+      ]
+    },
+    {
+      "id": "KNOW007",
+      "tag": "calendar_reform_reason",
+      "name": "Calendar_Origin (KNOW007)",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Mengapa Sultan Agung mengubah sistem kalender Jawa?",
+        "Kenapa Sultan Agung ubah kalender",
+        "Alasan Sultan Agung membuat kalender baru",
+        "Tujuan pembaruan kalender Jawa",
+        "Kenapa kalender Jawa diubah ke lunar"
+      ],
+      "responses": [
+        "Pembaruan tersebut dilakukan untuk menyelaraskan sistem penanggalan Jawa dengan sistem kalender Islam tanpa menghilangkan identitas tradisi Jawa."
+      ]
+    },
+    {
+      "id": "KNOW008",
+      "tag": "calendar_characteristics",
+      "name": "Calendar_Characteristics",
+      "group": "Calendar Knowledge",
+      "patterns": [
+        "Apa ciri khas kalender Jawa Mataraman?",
+        "Keunikan kalender Jawa",
+        "Ciri kalender Jawa Sultanagungan",
+        "Apa yang membedakan kalender Jawa",
+        "Kekhasan penanggalan Jawa"
+      ],
+      "responses": [
+        "Kalender ini menggabungkan unsur penanggalan Islam dengan tradisi penanggalan Jawa, termasuk pasaran, windu, dan pawukon."
+      ]
+    },
+    {
+      "id": "CHAT001",
+      "tag": "greeting",
+      "name": "Greeting",
+      "group": "Chat Management",
+      "patterns": [
+        "Halo",
+        "Hai",
+        "Selamat pagi",
+        "Selamat siang",
+        "Selamat sore",
+        "Sugeng enjing",
+        "Sugeng siang",
+        "Sugeng sonten",
+        "Assalamualaikum",
+        "Permisi"
+      ],
+      "responses": [
+        "{salam_jawa}! Selamat datang di {nama_bot}. Ada yang ingin Anda ketahui mengenai kalender Jawa?",
+        "{salam_jawa}! Saya {nama_bot}. Silakan tanya soal konversi tanggal, weton, wuku, atau sejarah kalender Jawa."
+      ]
+    },
+    {
+      "id": "CHAT002",
+      "tag": "about_bot",
+      "name": "About_Bot",
+      "group": "Chat Management",
+      "patterns": [
+        "Apa itu MarshallBot?",
+        "Kamu siapa",
+        "Siapa kamu",
+        "Perkenalkan dirimu",
+        "MarshallBot itu apa",
+        "Nama kamu siapa",
+        "Arti nama MarshallBot",
+        "MarshallBot singkatan dari apa"
+      ],
+      "responses": [
+        "MarshallBot (Mars Shadow Excellent Calendar Bot) adalah chatbot informasi dan konversi Kalender Jawa Mataraman (Sultanagungan). Saya bekerja dengan aturan dan pola, tanpa model bahasa besar."
+      ]
+    },
+    {
+      "id": "CHAT003",
+      "tag": "help",
+      "name": "Help",
+      "group": "Chat Management",
+      "patterns": [
+        "Apa saja yang bisa dilakukan MarshallBot?",
+        "Kamu bisa apa",
+        "Bantuan",
+        "Fitur apa saja",
+        "Menu",
+        "Help",
+        "Cara memakai chatbot ini",
+        "Apa yang bisa ditanyakan"
+      ],
+      "responses": [
+        "Saya dapat membantu konversi tanggal, menghitung weton, mencari wuku, serta memberikan informasi mengenai kalender Jawa. Coba tanya: \"Weton 17 Agustus 1945?\" atau \"Apa itu windu?\"."
+      ]
+    },
+    {
+      "id": "CHAT004",
+      "tag": "thanks",
+      "name": "Thanks",
+      "group": "Chat Management",
+      "patterns": [
+        "Terima kasih",
+        "Matur nuwun",
+        "Makasih",
+        "Thanks",
+        "Suwun",
+        "Terima kasih banyak"
+      ],
+      "responses": [
+        "Sami-sami! Senang dapat membantu Anda memahami kalender Jawa.",
+        "Sama-sama. Silakan bertanya lagi kapan saja."
+      ]
+    },
+    {
+      "id": "CHAT005",
+      "tag": "goodbye",
+      "name": "Goodbye",
+      "group": "Chat Management",
+      "patterns": [
+        "Sampai jumpa",
+        "Dadah",
+        "Selamat tinggal",
+        "Bye",
+        "Pamit dulu",
+        "Sampai ketemu lagi"
+      ],
+      "responses": [
+        "Matur nuwun telah menggunakan {nama_bot}. Sampai jumpa!"
+      ]
+    },
+    {
+      "id": "CHAT007",
+      "tag": "repeat_response",
+      "name": "Repeat_Response",
+      "group": "Chat Management",
+      "patterns": [
+        "Bisa ulangi jawaban tadi?",
+        "Ulangi jawabannya",
+        "Coba ulangi lagi",
+        "Tolong ulangi",
+        "Apa tadi jawabannya",
+        "Ulang jawaban sebelumnya"
+      ],
+      "responses": [
+        "Tentu. Berikut penjelasan sebelumnya: {respons_terakhir}"
+      ],
+      "handler": "ulangi_jawaban"
+    },
+    {
+      "id": "CHAT008",
+      "tag": "clarification",
+      "name": "Clarification",
+      "group": "Chat Management",
+      "patterns": [
+        "Maksud saya tanggal yang berbeda.",
+        "Bukan itu maksud saya",
+        "Saya salah tulis tanggal",
+        "Maksud saya tanggal lain",
+        "Bukan tanggal itu"
+      ],
+      "responses": [
+        "Baik, silakan sebutkan kembali tanggal yang ingin Anda konversikan, misalnya \"17 Agustus 1945\" atau \"1 Sura 1959\"."
+      ]
+    }
+  ]
+}

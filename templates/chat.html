@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ tema.bot_name }}, {{ tema.title }}{% endblock %}
+{% block body_attr %} class="page-chat" style="--accent: {{ tema.color }}"{% endblock %}
+{% block nav %}
+  <a class="btn btn-ghost" href="{{ url_for('admin_page', theme_id=tema.id) }}" id="link-admin">Statistik</a>
+  <button class="btn btn-ghost" type="button" id="btn-clear">Hapus riwayat</button>
+{% endblock %}
+{% block content %}
+<section class="chat" aria-label="Percakapan dengan {{ tema.bot_name }}">
+  <div class="chat-head">
+    <span class="avatar" aria-hidden="true">{{ tema.avatar }}</span>
+    <div class="chat-title">
+      <h1>{{ tema.bot_name }}</h1>
+      <p>{{ tema.subtitle }}</p>
+    </div>
+    <label class="toggle">
+      <input type="checkbox" id="mode-belajar">
+      <span>Mode belajar</span>
+    </label>
+  </div>
+
+  <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Pesan"></div>
+
+  <ul class="chips chips-chat" id="suggestions" aria-label="Pertanyaan saran"></ul>
+
+  <form class="composer" id="chat-form" autocomplete="off">
+    <label class="sr-only" for="chat-input">Ketik pesan</label>
+    <input id="chat-input" type="text" maxlength="500" placeholder="Contoh: weton 17 Agustus 1945" required>
+    <button class="btn btn-primary" type="submit">Kirim</button>
+  </form>
+</section>
+<script id="boot" type="application/json">{{ tema|tojson }}</script>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/chat.js') }}" defer></script>{% endblock %}

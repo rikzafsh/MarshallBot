@@ -12,6 +12,7 @@
     {% for t in themes %}
     <a class="btn btn-primary" href="{{ url_for('chat_page', theme_id=t.id) }}">Mulai bertanya ke {{ t.bot_name }}</a>
     {% endfor %}
+    {% set contoh = themes[0].suggestions %}
     {% if contoh %}
     <p class="hint">Atau coba salah satu pertanyaan ini:</p>
     <ul class="chips">
@@ -51,7 +52,7 @@
   {% for t in themes %}
   <a class="card" href="{{ url_for('chat_page', theme_id=t.id) }}" style="--accent: {{ t.color }}">
     <span class="card-avatar">{{ t.avatar }}</span>
-    <strong>{{ t.title }}</strong>
+    <strong>{{ t.name }}</strong>
     <span>{{ t.description }}</span>
   </a>
   {% endfor %}

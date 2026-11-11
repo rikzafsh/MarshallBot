@@ -11,10 +11,12 @@ Tambahan untuk MarshallBot:
 """
 from __future__ import annotations
 
+import json
 import random
 import re
 from datetime import datetime
 from difflib import SequenceMatcher
+from pathlib import Path
 
 from .extractor import mask_entitas
 from .kalender_data import (
@@ -116,32 +118,57 @@ def similarity(a: list[str], b: list[str]) -> float:
     jaccard = len(sa & sb) / len(sa | sb)
     fuzzy = SequenceMatcher(None, " ".join(a), " ".join(b)).ratio()
     cakupan = len(sb & sa) / len(sb)
-    return BOBOT_JACCARD * jaccard + BOBOT_FUZZY * fuzzy + BOBOT_CAKUPAN * cakupan
+    return round(BOBOT_JACCARD * jaccard + BOBOT_FUZZY * fuzzy + BOBOT_CAKUPAN * cakupan, 4)
 
 
-# --- Validasi tema -----------------------------------------------------------
+# --- Validasi dan pemuatan tema ---------------------------------------------
+
+KUNCI_WAJIB_TEMA = ["id", "name", "bot_name", "avatar", "color", "description",
+                    "greeting", "suggestions", "fallback", "intents"]
+
 
 def validate_theme(theme: dict) -> list[str]:
-    """Kembalikan daftar kesalahan; kosong berarti tema valid."""
-    err: list[str] = []
-    for kunci in ("id", "bot_name", "title", "fallback", "intents"):
-        if kunci not in theme:
-            err.append(f"Kunci '{kunci}' tidak ada")
-    if err:
-        return err
+    """Periksa struktur file tema. Kembalikan daftar masalah (kosong = valid)."""
+    masalah = [f"kunci '{k}' tidak ada" for k in KUNCI_WAJIB_TEMA if k not in theme]
+    if masalah:
+        return masalah
     if not theme["fallback"]:
-        err.append("fallback minimal 1 kalimat")
+        masalah.append("daftar 'fallback' kosong")
     tags: set[str] = set()
-    for i in theme["intents"]:
-        tag = i.get("tag", "(tanpa tag)")
+    pola_milik: dict[str, str] = {}
+    for i, intent in enumerate(theme["intents"]):
+        for k in ("tag", "patterns", "responses"):
+            if k not in intent:
+                masalah.append(f"intent ke-{i + 1}: kunci '{k}' tidak ada")
+        tag = intent.get("tag", f"#{i + 1}")
         if tag in tags:
-            err.append(f"Tag ganda: {tag}")
+            masalah.append(f"tag '{tag}' dipakai lebih dari sekali")
         tags.add(tag)
-        if not i.get("patterns"):
-            err.append(f"Intent '{tag}' tidak punya pola")
-        if not i.get("responses"):
-            err.append(f"Intent '{tag}' tidak punya respons")
-    return err
+        if not intent.get("patterns"):
+            masalah.append(f"intent '{tag}': patterns kosong")
+        if not intent.get("responses"):
+            masalah.append(f"intent '{tag}': responses kosong")
+        for pola in intent.get("patterns", []):
+            kunci = " ".join(preprocess(pola))
+            if not kunci:
+                masalah.append(f"intent '{tag}': pola '{pola}' kosong setelah praproses")
+            elif kunci in pola_milik and pola_milik[kunci] != tag:
+                masalah.append(f"pola '{pola}' ada di intent '{pola_milik[kunci]}' dan '{tag}'")
+            pola_milik.setdefault(kunci, tag)
+    return masalah
+
+
+def load_themes(folder: str | Path) -> dict[str, dict]:
+    """Baca semua themes/*.json dan kembalikan {id_tema: data}."""
+    themes: dict[str, dict] = {}
+    for path in sorted(Path(folder).glob("*.json")):
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        masalah = validate_theme(data)
+        if masalah:
+            raise ValueError(f"File tema {path.name} tidak valid:\n- " + "\n- ".join(masalah))
+        themes[data["id"]] = data
+    return themes
 
 
 # --- Mesin -------------------------------------------------------------------
@@ -162,9 +189,6 @@ class Konteks:
 
 class ChatbotEngine:
     def __init__(self, theme: dict, threshold: float = DEFAULT_THRESHOLD, handlers: dict | None = None):
-        errors = validate_theme(theme)
-        if errors:
-            raise ValueError(f"Tema '{theme.get('id', '?')}' tidak valid: " + "; ".join(errors))
         self.theme = theme
         self.threshold = threshold
         self.handlers = handlers or {}
@@ -175,35 +199,31 @@ class ChatbotEngine:
                           for i in theme["intents"] for p in i["patterns"]]
 
     # 1 + 2: memahami dan memutuskan
-    def scores(self, pesan: str) -> list[dict]:
-        """Skor terbaik setiap intent, diurutkan dari tertinggi."""
+    def explain(self, pesan: str, top: int = 3) -> list[dict]:
+        """Kandidat intent terbaik beserta pola dan skornya (untuk belajar/debug)."""
         tokens = preprocess(pesan)
-        terbaik: dict[str, tuple[float, str]] = {}
-        for tag, pola, tok in self._patterns:
-            s = similarity(tokens, tok)
-            if tag not in terbaik or s > terbaik[tag][0]:
-                terbaik[tag] = (s, pola)
-        hasil = [{"intent": t, "score": round(s, 4), "pattern": p} for t, (s, p) in terbaik.items()]
-        return sorted(hasil, key=lambda x: x["score"], reverse=True)
+        terbaik: dict[str, dict] = {}
+        for tag, pola, pola_tokens in self._patterns:
+            skor = similarity(tokens, pola_tokens)
+            if tag not in terbaik or skor > terbaik[tag]["score"]:
+                terbaik[tag] = {"intent": tag, "pattern": pola, "score": skor}
+        return sorted(terbaik.values(), key=lambda x: x["score"], reverse=True)[:top]
 
     def classify(self, pesan: str) -> tuple[str | None, float]:
-        urut = self.scores(pesan)
-        if not urut:
+        """Kembalikan (tag_intent, skor). tag None jika di bawah ambang."""
+        kandidat = self.explain(pesan, top=1)
+        if not kandidat:
             return None, 0.0
-        atas = urut[0]
-        if atas["score"] < self.threshold:
-            return None, atas["score"]
-        return atas["intent"], atas["score"]
-
-    def explain(self, pesan: str, n: int = 3) -> list[dict]:
-        """Tiga kandidat teratas, untuk mode belajar."""
-        hasil = self.scores(pesan)[:n]
-        for h in hasil:
-            h["above_threshold"] = h["score"] >= self.threshold
-        return hasil
+        best = kandidat[0]
+        if best["score"] < self.threshold:
+            return None, best["score"]
+        return best["intent"], best["score"]
 
     # 3: menjawab
     def reply(self, pesan: str, terakhir: str | None = None, sekarang: datetime | None = None) -> dict:
+        if not pesan or not pesan.strip():
+            return {"reply": "Pesannya masih kosong. Silakan ketik pertanyaan Anda.",
+                    "intent": None, "score": 0.0, "status": "ok"}
         sekarang = sekarang or datetime.now()
         tag, skor = self.classify(pesan)
         status = "ok"
@@ -222,15 +242,18 @@ class ChatbotEngine:
                 else:
                     teks, isian, status = self._jalankan(fn, intent, teks, pesan, terakhir, sekarang)
         return {"reply": self._isi_placeholder(teks, isian), "intent": tag,
-                "score": round(skor, 4), "status": status}
+                "score": skor, "status": status}
 
     def _jalankan(self, fn, intent, template, pesan, terakhir, sekarang):
-        from .kalender import KalenderBelumTersedia
+        from .kalender import KalenderBelumTersedia, TanggalTidakValid
         try:
             isian = fn(Konteks(pesan, intent, terakhir, sekarang)) or {}
             return template, isian, "ok"
         except PerluInfo as e:
             return str(e), {}, "perlu_info"
+        except TanggalTidakValid as e:
+            return (f"Tanggal Jawa {e} tidak ada dalam kalender. Periksa kembali, "
+                    "misalnya jumlah hari pada bulan itu."), {}, "perlu_info"
         except KalenderBelumTersedia:
             pesan_nonaktif = self.theme.get(
                 "pesan_tidak_aktif",

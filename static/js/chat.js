@@ -51,10 +51,11 @@
     const ul = document.createElement("ul");
     ul.className = "explain";
     data.candidates.forEach((c, i) => {
+      const lolos = c.score >= data.threshold;
       const li = document.createElement("li");
-      li.className = c.above_threshold ? "pass" : "";
+      li.className = lolos ? "pass" : "";
       li.textContent = `${i + 1}. ${c.intent} ${skor(c.score)} ` +
-        `(${c.above_threshold ? "lolos ambang" : "di bawah ambang"}), pola "${c.pattern}"`;
+        `(${lolos ? "lolos ambang" : "di bawah ambang"}), pola "${c.pattern}"`;
       ul.appendChild(li);
     });
     wrap.appendChild(ul);

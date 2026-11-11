@@ -3,8 +3,8 @@
 {% block content %}
 <section class="hero hero-simple">
   <div class="hero-text">
-    <h1>Halaman tidak ditemukan</h1>
-    <p class="lead">Alamat yang Anda buka tidak ada. Kembali ke halaman utama untuk memilih chatbot.</p>
+    <h1>{{ code or 404 }}: {{ message or "Halaman tidak ditemukan" }}</h1>
+    <p class="lead">Kembali ke halaman utama untuk memilih chatbot.</p>
     <a class="btn btn-primary" href="{{ url_for('index') }}">Ke halaman utama</a>
   </div>
 </section>

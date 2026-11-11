@@ -1,33 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Statistik, {{ tema.bot_name }}{% endblock %}
-{% block body_attr %} style="--accent: {{ tema.color }}"{% endblock %}
-{% block nav %}<a class="btn btn-ghost" href="{{ url_for('chat_page', theme_id=tema.id) }}">Kembali ke chat</a>{% endblock %}
+{% block title %}Statistik, {{ theme.bot_name }}{% endblock %}
+{% block body_attr %} style="--accent: {{ theme.color }}"{% endblock %}
+{% block nav %}<a class="btn btn-ghost" href="{{ url_for('chat_page', theme_id=theme.id) }}">Kembali ke chat</a>{% endblock %}
 {% block content %}
 <section class="admin">
-  <h1>Statistik {{ tema.bot_name }}</h1>
+  <h1>Statistik {{ theme.bot_name }}</h1>
   <p class="lead small">
     Pakai halaman ini untuk menemukan pertanyaan yang belum dipahami bot, lalu
-    tambahkan kalimatnya sebagai pola baru di <code>themes/{{ tema.id }}.json</code>.
+    tambahkan kalimatnya sebagai pola baru di <code>themes/{{ theme.id }}.json</code>.
     Ambang saat ini: {{ threshold }}.
   </p>
 
   <dl class="stat-grid">
-    <div><dt>Pertanyaan</dt><dd>{{ stats.total }}</dd></div>
-    <div><dt>Dikenali</dt><dd>{{ stats.persen_dikenali }}%</dd></div>
-    <div><dt>Tidak dikenali</dt><dd>{{ stats.tidak_dikenali }}</dd></div>
-    <div><dt>Pengunjung (sesi)</dt><dd>{{ stats.sesi }}</dd></div>
+    <div><dt>Pertanyaan</dt><dd>{{ summary.total }}</dd></div>
+    <div><dt>Dikenali</dt><dd>{{ summary.persen_dikenali }}%</dd></div>
+    <div><dt>Tidak dikenali</dt><dd>{{ summary.tidak_dikenali }}</dd></div>
+    <div><dt>Pengunjung (sesi)</dt><dd>{{ summary.sesi }}</dd></div>
   </dl>
 
-  <h2>Pertanyaan per intent</h2>
-  {% if stats.per_intent %}
+  <h2>Jumlah pertanyaan per intent</h2>
+  {% if stats %}
   <table class="table">
     <thead><tr><th>Intent</th><th>Jumlah</th><th>Proporsi</th></tr></thead>
     <tbody>
-    {% for r in stats.per_intent %}
+    {% for r in stats %}
       <tr>
         <td>{{ r.intent }}</td>
         <td>{{ r.jumlah }}</td>
-        <td><span class="bar"><span style="width: {{ (100 * r.jumlah / stats.total)|round(1) }}%"></span></span></td>
+        <td><span class="bar"><span style="width: {{ (100 * r.jumlah / summary.total)|round(1) }}%"></span></span></td>
       </tr>
     {% endfor %}
     </tbody>
@@ -37,17 +37,17 @@
   {% endif %}
 
   <h2>Pertanyaan yang tidak dikenali (terbaru)</h2>
-  {% if stats.unknown %}
+  {% if unknown %}
   <table class="table">
     <thead><tr><th>Pertanyaan</th><th>Skor tertinggi</th><th>Waktu</th></tr></thead>
     <tbody>
-    {% for r in stats.unknown %}
+    {% for r in unknown %}
       <tr><td>{{ r.text }}</td><td>{{ '%.2f'|format(r.score or 0) }}</td><td>{{ r.created_at }}</td></tr>
     {% endfor %}
     </tbody>
   </table>
   {% else %}
-  <p class="empty">Semua pertanyaan sejauh ini dikenali.</p>
+  <p class="empty">Semua pertanyaan sejauh ini dikenali (tidak dikenali: 0).</p>
   {% endif %}
 </section>
 {% endblock %}

@@ -1,27 +1,35 @@
-"""Chat di terminal, tanpa web. Contoh: python cli.py --debug"""
-from __future__ import annotations
+"""
+Chat dengan MarshallBot langsung di terminal, tanpa browser.
 
+Contoh:
+    python cli.py
+    python cli.py --debug          # tampilkan 3 kandidat intent teratas
+Ketik 'keluar' untuk berhenti.
+"""
 import argparse
-import sys
+from pathlib import Path
 
-from app import BASE_DIR, load_themes
-from chatbot.engine import ChatbotEngine, DEFAULT_THRESHOLD
+from chatbot import ChatbotEngine, load_themes
 from chatbot.handlers import HANDLERS
 
+BASE_DIR = Path(__file__).resolve().parent
 
-def main() -> None:
-    ap = argparse.ArgumentParser(description="Chat dengan bot di terminal")
-    ap.add_argument("--tema", default="marshall", help="id tema (nama file di themes/)")
-    ap.add_argument("--debug", action="store_true", help="tampilkan tiga kandidat teratas")
-    ap.add_argument("--ambang", type=float, default=DEFAULT_THRESHOLD)
-    args = ap.parse_args()
+
+def main():
+    parser = argparse.ArgumentParser(description="MarshallBot di terminal")
+    parser.add_argument("--tema", default="marshall", help="id tema (nama file JSON tanpa .json)")
+    parser.add_argument("--ambang", type=float, default=0.45, help="ambang batas skor")
+    parser.add_argument("--debug", action="store_true", help="tampilkan kandidat intent")
+    args = parser.parse_args()
 
     themes = load_themes(BASE_DIR / "themes")
     if args.tema not in themes:
-        sys.exit(f"Tema '{args.tema}' tidak ada. Pilihan: {', '.join(themes)}")
-    bot = ChatbotEngine(themes[args.tema], threshold=args.ambang, handlers=HANDLERS)
+        print(f"Tema '{args.tema}' tidak ada. Pilihan: {', '.join(themes)}")
+        return
+    theme = themes[args.tema]
+    bot = ChatbotEngine(theme, args.ambang, handlers=HANDLERS)
 
-    print(bot.isi(themes[args.tema]["greeting"]))
+    print(f"{theme['avatar']} {theme['bot_name']}: {bot.isi(theme['greeting'])}")
     print("(ketik 'keluar' untuk berhenti)\n")
     terakhir = None
     while True:
@@ -32,17 +40,16 @@ def main() -> None:
             break
         if pesan.lower() in {"keluar", "exit", "quit"}:
             break
-        if not pesan:
-            continue
         hasil = bot.reply(pesan, terakhir=terakhir)
         terakhir = hasil["reply"]
-        print(f"Bot : {hasil['reply']}")
+        print(f"{theme['bot_name']}: {hasil['reply']}")
+        label = hasil["intent"] or "tidak dikenali"
+        print(f"   [intent: {label} · skor {hasil['score']:.2f}]")
         if args.debug:
-            label = hasil["intent"] or "tidak dikenali"
-            print(f"      [intent: {label}, skor {hasil['score']:.2f}, status {hasil['status']}]")
-            for c in bot.explain(pesan):
-                print(f"      - {c['intent']:<26} {c['score']:.2f}  pola: \"{c['pattern']}\"")
+            for i, k in enumerate(bot.explain(pesan), 1):
+                print(f"   {i}. {k['intent']:<24} {k['score']:.2f}  pola: \"{k['pattern']}\"")
         print()
+    print("Sampai jumpa!")
 
 
 if __name__ == "__main__":

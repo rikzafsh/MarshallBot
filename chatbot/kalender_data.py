@@ -51,12 +51,12 @@ BULAN_JAWA_ALIAS = {
     "pasa": "Pasa", "poso": "Pasa",
     "sawal": "Sawal", "syawal": "Sawal",
     "dulkangidah": "Dulkangidah", "dulkaidah": "Dulkangidah",
-    "zulkaidah": "Dulkangidah",
+    "zulkaidah": "Dulkangidah", "sela": "Dulkangidah", "selo": "Dulkangidah",
     "besar": "Besar", "dulhijjah": "Besar", "zulhijah": "Besar",
 }
 # Alias yang juga kata umum bahasa Indonesia. Kata ini hanya dianggap nama bulan
 # bila diawali angka tanggal ("10 Besar") atau didahului kata "bulan".
-BULAN_JAWA_KATA_UMUM = {"besar", "pasa"}
+BULAN_JAWA_KATA_UMUM = {"besar", "pasa", "sela", "selo"}
 
 # --- Bulan Masehi ------------------------------------------------------------
 BULAN_MASEHI = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",

@@ -61,6 +61,7 @@ def _tanggal_jawa(k: Konteks, butuh_tahun: bool = True) -> TglJawa:
 
 
 def _ke_masehi(tj: TglJawa) -> date:
+    # TanggalTidakValid (mis. 30 Sapar) ditangani mesin: jadi pertanyaan balik.
     return kalender.javanese_to_gregorian(tj.tanggal, tj.bulan, tj.tahun)
 
 

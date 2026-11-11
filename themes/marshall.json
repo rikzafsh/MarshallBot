@@ -1,7 +1,7 @@
 {
   "id": "marshall",
   "bot_name": "MarshallBot",
-  "title": "Konversi Kalender Jawa Mataraman",
+  "name": "Konversi Kalender Jawa Mataraman",
   "subtitle": "Kalender Jawa Sultanagungan",
   "description": "Konversi tanggal Masehi dan Jawa, weton, wuku, bulan, windu, serta sejarah kalender Jawa Mataraman. Dijalankan dengan aturan dan pola, tanpa model bahasa besar.",
   "avatar": "♂",
@@ -13,7 +13,7 @@
     "Apa itu windu?",
     "Nama bulan Jawa"
   ],
-  "pesan_tidak_aktif": "Perhitungan kalender untuk permintaan ini belum diaktifkan. Sementara ini saya masih bisa menjawab soal neptu, wuku, bulan, windu, dan sejarah kalender Jawa.",
+  "pesan_tidak_aktif": "Perhitungan kalender untuk permintaan ini sedang tidak tersedia. Silakan coba lagi nanti.",
   "fallback": [
     "Maaf, saya belum memahami pertanyaan tersebut. Silakan gunakan pertanyaan yang berkaitan dengan kalender Jawa atau konversi tanggal.",
     "Pertanyaan itu di luar bahan saya. Coba tanyakan weton, wuku, bulan Jawa, windu, atau konversi tanggal, misalnya \"Weton 17 Agustus 1945\".",
@@ -499,7 +499,7 @@
         "Apa itu tahun wastu"
       ],
       "responses": [
-        "Wastu merupakan tahun pendek (354 hari), sedangkan Wuntu merupakan tahun panjang (355 hari, bulan Besar berumur 30 hari) dalam sistem penanggalan Jawa. Dalam satu windu ada tiga tahun wuntu dan lima tahun wastu."
+        "Wastu merupakan tahun pendek (354 hari), sedangkan Wuntu merupakan tahun panjang (355 hari, bulan Besar berumur 30 hari) dalam sistem penanggalan Jawa. Dalam satu windu ada tiga tahun wuntu (Ehe, Dal, dan Jimakir) dan lima tahun wastu."
       ]
     },
     {

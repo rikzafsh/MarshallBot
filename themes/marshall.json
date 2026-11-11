@@ -4,8 +4,8 @@
   "name": "Konversi Kalender Jawa Mataraman",
   "subtitle": "Kalender Jawa Sultanagungan",
   "description": "Konversi tanggal Masehi dan Jawa, weton, wuku, bulan, windu, serta sejarah kalender Jawa Mataraman. Dijalankan dengan aturan dan pola, tanpa model bahasa besar.",
-  "avatar": "♂",
-  "color": "#D2562D",
+  "avatar": "M",
+  "color": "#6e3994",
   "greeting": "{salam_jawa}! Saya {nama_bot}. Tanyakan konversi tanggal, weton, wuku, bulan Jawa, atau sejarah kalender Sultanagungan.",
   "suggestions": [
     "Tanggal Jawa hari ini",
@@ -827,5 +827,6 @@
         "Baik, silakan sebutkan kembali tanggal yang ingin Anda konversikan, misalnya \"17 Agustus 1945\" atau \"1 Sura 1959\"."
       ]
     }
-  ]
+  ],
+  "logo": "img/logo-mark.png"
 }

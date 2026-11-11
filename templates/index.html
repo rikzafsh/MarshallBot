@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block title %}MarshallBot, kalender Jawa Mataraman{% endblock %}
+{% block brand %}<span></span>{% endblock %}
 {% block content %}
 <section class="hero">
   <div class="hero-text">
+    <img class="hero-logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="MARSHALL, Kalender Jawa Mataraman Berbasis Web">
     <h1>Hari, pasaran, dan bulan Jawa dalam satu percakapan</h1>
     <p class="lead">
       MarshallBot menjawab pertanyaan tentang kalender Jawa Mataraman
